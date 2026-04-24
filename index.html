@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Visita al doctor 💊🏥</title>
 
 <style>
@@ -13,103 +14,101 @@
 
 body {
   height: 100vh;
+  width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: url('https://images.unsplash.com/photo-1501004318641-b39e6451bec6') no-repeat center center/cover;
+  background: radial-gradient(circle at top, #3b0066, #12001f, #000);
   overflow: hidden;
   font-family: Arial, sans-serif;
-}
-
-/* capa oscura elegante */
-.overlay {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.55);
 }
 
 /* título */
 .title {
   position: absolute;
   top: 20px;
-  color: white;
-  font-size: 32px;
-  text-shadow: 0 0 15px pink;
-  animation: glow 2s infinite alternate;
+  color: #fff;
+  font-size: 34px;
+  font-weight: bold;
+  text-shadow: 0 0 10px #fff, 0 0 25px #b56bff, 0 0 40px #ffcc00;
+  animation: glowText 2s infinite alternate;
 }
 
-@keyframes glow {
-  from { text-shadow: 0 0 10px pink; }
-  to { text-shadow: 0 0 25px white; }
+@keyframes glowText {
+  from { filter: brightness(1); }
+  to { filter: brightness(1.6); }
 }
 
 /* contenedor del video */
-.video-box {
+.video-container {
+  width: 90vw;
+  max-width: 420px;
+  aspect-ratio: 9 / 16;
   position: relative;
-  width: 360px;
-  height: 640px;
-  border-radius: 20px;
+  border-radius: 25px;
   overflow: hidden;
-  border: 3px solid rgba(255,255,255,0.6);
-  box-shadow: 0 0 40px rgba(255, 105, 180, 0.5);
-  z-index: 2;
-  animation: float 4s ease-in-out infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* animación flotante */
-@keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0px); }
+/* marco dorado brillante */
+.video-container::before {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 30px;
+  background: linear-gradient(45deg, gold, #fff3a0, gold, #ffcc00);
+  background-size: 300% 300%;
+  animation: borderGlow 4s linear infinite;
+  z-index: 0;
+  filter: blur(3px);
 }
 
+@keyframes borderGlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* video */
 video {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 22px;
+  position: relative;
+  z-index: 1;
 }
 
-/* partículas rosas */
-.petal {
+/* brillo ambiental */
+.glow {
   position: absolute;
-  width: 15px;
-  height: 15px;
-  background: pink;
-  border-radius: 50%;
-  opacity: 0.7;
-  animation: fall linear infinite;
+  width: 120%;
+  height: 120%;
+  background: radial-gradient(circle, rgba(255,215,0,0.15), transparent 60%);
+  filter: blur(40px);
+  z-index: 0;
+  animation: pulse 3s infinite alternate;
 }
 
-@keyframes fall {
-  0% { transform: translateY(-10%); opacity: 1; }
-  100% { transform: translateY(110vh); opacity: 0; }
+@keyframes pulse {
+  from { opacity: 0.4; transform: scale(1); }
+  to { opacity: 0.8; transform: scale(1.1); }
 }
 </style>
 </head>
 
 <body>
 
-<div class="overlay"></div>
-
 <div class="title">Visita al doctor 💊🏥</div>
 
-<div class="video-box">
+<div class="video-container">
+  <div class="glow"></div>
   <video controls autoplay loop>
     <source src="https://raw.githubusercontent.com/Orlyk2/PioNach/c5395f5cbc7f84af494de8e3401e0eab97bb9089/1775773444805046.mp4" type="video/mp4">
   </video>
 </div>
 
-<script>
-// pétalos animados
-for(let i = 0; i < 25; i++){
-  let petal = document.createElement("div");
-  petal.classList.add("petal");
-  petal.style.left = Math.random() * 100 + "vw";
-  petal.style.animationDuration = (Math.random() * 5 + 3) + "s";
-  document.body.appendChild(petal);
-}
-</script>
-
 </body>
-  </html>
+</html>
